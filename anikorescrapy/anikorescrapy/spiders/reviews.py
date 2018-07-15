@@ -62,7 +62,8 @@ class ReviewsSpider(scrapy.Spider):
 
 
 
-                yield {'anime_id':anime_id, 'timestamp':timestamp, 'reviewer':reviewer, 'reviewer_url':reviewer_url, 'reading_num':reading_num,\
+                yield {'anime_id':anime_id, 'timestamp':timestamp, 'reviewer':reviewer, 'reviewer_url':reviewer_url,\
+                 'reviews_state':review_state,'reading_num':reading_num, \
                 'point':point, 'point_story':point_story, 'point_animation':point_animation, \
                 'point_vc':point_vc, 'point_music':point_music, 'point_chara':point_chara,\
                 'review_url':review_url, 'review_id':review_id, 'review_text':review_text}
