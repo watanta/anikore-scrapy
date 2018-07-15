@@ -34,6 +34,7 @@ class ReviewsSpider(scrapy.Spider):
             for review in reveiws:
                 timestamp = review.xpath('.//span[@class="ateval_dtreviewed"]/text()').extract()
                 reviewer = review.xpath('.//span[@class="ateval_reviewer"]/a/text()').extract()
+                review_state = reviews.xpath('.//span[@class="bold"]/text()').extract()
                 reviewer_url = review.xpath('.//span[@class="ateval_reviewer"]/a/@href').extract()
                 reading_num = review.xpath('.//span[@class="ateval_reviewer"]/span[@class="red bold"]/text()').extract()
                 point = review.xpath('.//span[@class="ateval_rating"]//span/text()').extract()

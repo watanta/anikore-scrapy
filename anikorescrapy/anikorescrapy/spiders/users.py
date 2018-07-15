@@ -15,7 +15,8 @@ class UsersSpider(scrapy.Spider):
     start_urls = ['https://www.anikore.jp/users/login/']
 
     #allow to handle 404
-    handle_httpstatus_list = [404]
+    handle_httpstatus_list = [404, 500]
+    handle_httpstatus_all = True
 
     def __init__(self):
         self.user_id = 1
@@ -58,7 +59,7 @@ class UsersSpider(scrapy.Spider):
 
     def parse_user(self, response):
 
-        if self.user_id == 2:
+        if self.user_id == 400000:
             pass
         else:
 
@@ -136,10 +137,6 @@ class UsersSpider(scrapy.Spider):
 
         l.add_value('animes_fav_url',  animes_fav_url)
 
-
-        print('_____________________________________________________')
-        print(next_url)
-        print('_____________________________________________________')
 
         # pagenate to last page
         if next_url is not None:

@@ -80,7 +80,7 @@ ITEM_PIPELINES = {
 MONGODB_SERVER = 'localhost'
 MONGODB_PORT = 27017
 MONGODB_DB = 'anikore'
-MONGODB_COLLECTION = "user"
+MONGODB_COLLECTION = "users"
 # MONGODB_COLLECTION = __file__
 # print(MONGODB_COLLECTION)
 # Enable and configure the AutoThrottle extension (disabled by default)
