@@ -9,6 +9,7 @@ from pymongo import MongoClient  # mongoDB との接続
 import datetime
 from scrapy.conf import settings
 
+
 class MongoDBPipeline(object):
 
     def __init__(self):

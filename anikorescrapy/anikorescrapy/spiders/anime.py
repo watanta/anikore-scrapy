@@ -7,7 +7,7 @@ import re
 class AnimeSpider(scrapy.Spider):
     name = 'anime'
     allowed_domains = ['anikore.jp']
-    start_urls = ['http://anikore.jp/anime/1']
+    start_urls = ['http://www.anikore.jp/anime/1']
     
     def __init__(self):
         self.num = 1
