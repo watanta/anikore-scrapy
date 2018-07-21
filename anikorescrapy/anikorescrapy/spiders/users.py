@@ -3,7 +3,6 @@ import scrapy
 from scrapy.http import Request
 from scrapy.utils.response import open_in_browser
 from anikorescrapy.items import UserscrapyItem
-from anikorescrapy.items import UserfavItem
 from scrapy.loader import ItemLoader
 
 
@@ -14,13 +13,11 @@ class UsersSpider(scrapy.Spider):
     allowed_domains = ['anikore.jp']
     start_urls = ['https://www.anikore.jp/users/login/']
 
-    #allow to handle 404
-    handle_httpstatus_list = [404, 500]
-    handle_httpstatus_all = True
+
 
     def __init__(self):
-        self.user_id = 1
-        self.user_url = "https://www.anikore.jp/users/profile/1/"
+        self.user_id = 106166
+        self.user_url = "https://www.anikore.jp/users/profile/"+str(self.user_id)+"/"
 
         self.mail = "watanabe101watanabe@yahoo.co.jp"
         self.password = "watawata"
@@ -28,6 +25,10 @@ class UsersSpider(scrapy.Spider):
 
     def parse(self, response):
         #open_in_browser(response)
+
+        print(response.meta)
+        response.meta['handle_httpstatus_all'] = True
+        print(response.meta)
 
         token_key = response.xpath('//div[@style="display:none;"]/input[@name="data[_Token][key]"]/@value').extract_first()
         token_fields = response.xpath('//div[@style="display:none;"]/input[@name="data[_Token][fields]"]/@value').extract()[1]
@@ -42,17 +43,6 @@ class UsersSpider(scrapy.Spider):
             callback=self.after_login
             )
 
-
-        # formdata = {'_method':'POST','data[_Token][key]':token_key,\
-        # 'data[User][email]': self.mail,'data[User][password]': self.password,\
-        # 'data[User][remember_me]': '0','x': '162','y': '23',\
-        # 'data[_Token][fields]': token_fields}
-
-        # return scrapy.FormRequest(
-        #   url=self.user_url,
-        #   formdata=formdata,
-        #   callback=self.after_login
-        #   )
 
     def after_login(self, response):
         return Request(url=self.user_url, callback=self.parse_user)

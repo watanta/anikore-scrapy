@@ -34,9 +34,20 @@ class UserscrapyItem(scrapy.Item):
     animes_completed_url = scrapy.Field()
     animes_nocategory_url = scrapy.Field()
 
-class UserfavItem(scrapy.Item):
-    ids = scrapy.Field()
+class ReviewscrapyItem(scrapy.Item):
+    anime_id = scrapy.Field()
+    timestamp = scrapy.Field()
+    reviewer = scrapy.Field()
+    reviewer_url = scrapy.Field()
+    review_state = scrapy.Field()
+    reading_num = scrapy.Field()
+    point = scrapy.Field()
+    point_story = scrapy.Field()
+    point_animation = scrapy.Field()
+    point_vc = scrapy.Field()
+    point_music = scrapy.Field()
+    point_chara = scrapy.Field()
+    review_url = scrapy.Field()
+    review_id  = scrapy.Field()
+    review_text = scrapy.Field()
 
-class UserLoader(ItemLoader):
-    default_input_processor = Identity()
-    default_output_processor = Identity()

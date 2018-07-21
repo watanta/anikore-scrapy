@@ -3,7 +3,7 @@ import scrapy
 from scrapy_splash import SplashRequest
 from scrapy.http import Request
 import re
-
+from scrapy.utils.response import open_in_browser
 
 def nonetostr(str):
     if str is None:
@@ -13,10 +13,10 @@ def nonetostr(str):
 class ReviewsSpider(scrapy.Spider):
     name = 'reviews'
     allowed_domains = ['anikore.jp']
-    start_urls = ['https://www.anikore.jp/anime_review/1']
+    start_urls = ['https://www.anikore.jp/anime_review/11553']
 
     def __init__(self):
-        self.anime_id = 1
+        self.anime_id = 11553
 
     def start_requests(self):
         for url in self.start_urls:
@@ -26,15 +26,24 @@ class ReviewsSpider(scrapy.Spider):
             )
 
     def parse(self, response):
-        if self.anime_id == 12500: #id limit
+
+        if self.anime_id == 11554: #id limit
             pass
         else:
+            open_in_browser(response)
             anime_id = self.anime_id
-            reveiws = response.xpath('//*[@id="anime_detail_reviews"]/div/div[@class="anime_title_eval"]')
-            for review in reveiws:
+            reviews = response.xpath('//*[@id="anime_detail_reviews"]/div/div[@class="anime_title_eval"]')
+            reviews1 = response.xpath('//div[@class="anime_detail_reviews1"]/div[@class="anime_title_eval"]')
+            
+            print('___________________________________________________')
+            print(reviews1)
+            print('___________________________________________________')
+            reviews = reviews + reviews1
+
+            for review in reviews:
                 timestamp = review.xpath('.//span[@class="ateval_dtreviewed"]/text()').extract()
                 reviewer = review.xpath('.//span[@class="ateval_reviewer"]/a/text()').extract()
-                review_state = reviews.xpath('.//span[@class="bold"]/text()').extract()
+                review_state = review.xpath('.//span[@class="bold"]/text()').extract()
                 reviewer_url = review.xpath('.//span[@class="ateval_reviewer"]/a/@href').extract()
                 reading_num = review.xpath('.//span[@class="ateval_reviewer"]/span[@class="red bold"]/text()').extract()
                 point = review.xpath('.//span[@class="ateval_rating"]//span/text()').extract()
@@ -72,5 +81,3 @@ class ReviewsSpider(scrapy.Spider):
             url = 'https://www.anikore.jp/anime_review/' + str(self.anime_id) + '/'
 
             yield Request(url, callback=self.parse, dont_filter=True)
-
-    

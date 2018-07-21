@@ -29,7 +29,7 @@ ROBOTSTXT_OBEY = True
 # Configure a delay for requests for the same website (default: 0)
 # See https://doc.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY = 0.1
+DOWNLOAD_DELAY = 1
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
@@ -60,6 +60,7 @@ DOWNLOADER_MIDDLEWARES = {
     'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware': 810,
 }
 
+#splash settings
 SPLASH_URL = 'http://localhost:8050/'
 DUPEFILTER_CLASS = 'scrapy_splash.SplashAwareDupeFilter'
 HTTPCACHE_STORAGE = 'scrapy_splash.SplashAwareFSCacheStorage'
@@ -77,12 +78,15 @@ ITEM_PIPELINES = {
 }
 
 
+
+#mongoDB settings
 MONGODB_SERVER = 'localhost'
 MONGODB_PORT = 27017
+#db name
 MONGODB_DB = 'anikore'
+#collection name
 MONGODB_COLLECTION = "users"
-# MONGODB_COLLECTION = __file__
-# print(MONGODB_COLLECTION)
+
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
 #AUTOTHROTTLE_ENABLED = True
@@ -97,9 +101,15 @@ MONGODB_COLLECTION = "users"
 #AUTOTHROTTLE_DEBUG = False
 
 # Enable and configure HTTP caching (disabled by default)
+
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html#httpcache-middleware-settings
+# !ATTENTION if below http settings enabled, splash doesn't work! 
+
 HTTPCACHE_ENABLED = True
 HTTPCACHE_EXPIRATION_SECS = 0
 HTTPCACHE_DIR = 'httpcache'
 HTTPCACHE_IGNORE_HTTP_CODES = []
 HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+#allow to handle any error
+HTTPERROR_ALLOW_ALL = True
