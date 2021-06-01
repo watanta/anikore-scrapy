@@ -33,7 +33,7 @@ shub==2.8.0
 six==1.11.0
 tqdm==4.23.4
 Twisted==18.4.0
-urllib3==1.23
+urllib3==1.26.5
 w3lib==1.19.0
 websocket-client==0.48.0
 zope.interface==4.5.0
